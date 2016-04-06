@@ -1,0 +1,2 @@
+VendingMachineItem Constructor allows zero (0.00) item price.
+VendingMachineItem Constructor allows zero length item name.
