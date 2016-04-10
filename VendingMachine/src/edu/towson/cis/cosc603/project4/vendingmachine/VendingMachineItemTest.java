@@ -16,9 +16,9 @@ public class VendingMachineItemTest {
 
 	/**  Declaring necessary test objects for {@link VendingMachineItem}. */
 	static VendingMachineItem item1;
-	static VendingMachineItem item2;
-	static VendingMachineItem item3;
-	static VendingMachineItem item4;
+//	static VendingMachineItem item2;
+//	static VendingMachineItem item3;
+//	static VendingMachineItem item4;
 
 	/**
 	 * Initializes the necessary test objects for the test cases to use.
@@ -28,8 +28,8 @@ public class VendingMachineItemTest {
 	@BeforeClass
 	public static void setUp() throws Exception {
 //        System.out.println("setUp");
-		item1 = new VendingMachineItem("Snickers", 1.00);
-		item2 = new VendingMachineItem("Baby Ruth", 0.00);
+//		item1 = new VendingMachineItem("Snickers", 1.00);
+//		item2 = new VendingMachineItem("Baby Ruth", 0.00);
 	}
 
 	/**
@@ -40,12 +40,12 @@ public class VendingMachineItemTest {
 	public void testVendingMachineItemA() {
 //		System.out.println("testVendingMachineItemA");
 		try {
-	    	item3 = new VendingMachineItem("", 1.00);
+	    	item1 = new VendingMachineItem("", 1.00);
 		} catch (VendingMachineException e) {
 			// test exception error message
 			assertEquals("Name cannot be empty", e.getMessage());
 		}
-		assertNull(item3);
+		assertNull(item1);
 	}
 
 	/**
@@ -56,12 +56,12 @@ public class VendingMachineItemTest {
 	public void testVendingMachineItemB() {
 //		System.out.println("testVendingMachineItemB");
 		try {
-	    	item4 = new VendingMachineItem("York Peppermint Patty", -1.00);
+	    	item1 = new VendingMachineItem("York Peppermint Patty", -1.00);
 		} catch (VendingMachineException e) {
 			// test exception error message
 			assertEquals("Price cannot be less than zero", e.getMessage());
 		}
-		assertNull(item4);
+		assertNull(item1);
 	}
 	
 	/**
@@ -71,8 +71,9 @@ public class VendingMachineItemTest {
 	@Test
 	public void testGetName() {
 //        System.out.println("testGetName");
+		item1 = new VendingMachineItem("Snickers", 1.00);
 		assertEquals("Snickers", item1.getName());
-		assertEquals("Baby Ruth", item2.getName());
+//		assertEquals("Baby Ruth", item2.getName());
 	}
 	
 	
@@ -83,6 +84,7 @@ public class VendingMachineItemTest {
 	@Test
 	public void testGetPriceA() {
 //        System.out.println("testGetPriceA");
+		item1 = new VendingMachineItem("Snickers", 1.00);
 		assertEquals(1.00, item1.getPrice(),0.001);
 	}
 	
@@ -93,18 +95,27 @@ public class VendingMachineItemTest {
 	@Test
 	public void testGetPriceB() {
 //        System.out.println("testGetPriceB");
-		assertEquals(0.00, item2.getPrice(),0.001);
+		item1 = new VendingMachineItem("Snickers", 0.00);
+		assertEquals(0.00, item1.getPrice(),0.001);
 	}
 	
+	@After
+	public void tearDown1(){
+//        System.out.println("tearDown");
+		item1 = null;
+//		item2 = null;
+//		item3 = null;
+//		item4 = null;
+	}
 	/**
 	 * Cleans up test objects after a test case is executed.
 	 */
 	@AfterClass
 	public static void tearDown(){
 //        System.out.println("tearDown");
-		item1 = null;
-		item2 = null;
-		item3 = null;
-		item4 = null;
+//		item1 = null;
+//		item2 = null;
+//		item3 = null;
+//		item4 = null;
 	}
 }

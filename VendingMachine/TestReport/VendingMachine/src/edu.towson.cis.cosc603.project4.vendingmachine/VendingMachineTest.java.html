@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>VendingMachineTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">edu.towson.cis.cosc603.project4.vendingmachine (Apr 9, 2016 10:25:23 PM)</a> &gt; <a href="../../index.html" class="el_group">VendingMachine</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc603.project4.vendingmachine</a> &gt; <span class="el_source">VendingMachineTest.java</span></div><h1>VendingMachineTest.java</h1><pre class="source lang-java linenums">package edu.towson.cis.cosc603.project4.vendingmachine;
+
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+
+
+<span class="fc" id="L14">public class VendingMachineTest {</span>
+
+	/**  Declaring necessary test objects for {@link VendingMachine}. */
+	static VendingMachine vendingMachine1;
+	static VendingMachineItem item1;
+	static VendingMachineItem item2;
+
+	/**
+	 * Initializes the necessary test objects for the test cases to use.
+	 * 
+	 * @throws Exception the exception
+	 */
+	@BeforeClass
+	public static void setUp() throws Exception {
+//        System.out.println(&quot;setUp&quot;);
+<span class="fc" id="L29">        vendingMachine1 = new VendingMachine();</span>
+<span class="fc" id="L30">		item1 = new VendingMachineItem(&quot;Snickers&quot;,1.50);</span>
+<span class="fc" id="L31">		item2 = new VendingMachineItem(&quot;Baby Ruth&quot;,1.50);</span>
+
+<span class="fc" id="L33">	}</span>
+	
+	@Before
+	public void setUp1() throws Exception {
+<span class="fc" id="L37">		vendingMachine1.addItem(item1, &quot;A&quot;);</span>
+<span class="fc" id="L38">		vendingMachine1.addItem(item2, &quot;C&quot;);</span>
+<span class="fc" id="L39">	}</span>
+	
+	/**
+	 * Test for the addItem() method of the {@link VendingMachine} class.
+	 * Test constructor postcondition: all entries in itemArray are null, balance set to be 0
+	 */
+	@Test
+	public void testVendingMachine() {
+//        System.out.println(&quot;testVendingMachine&quot;);
+//		assertNotNull(vendingMachine1.getItem(&quot;A&quot;));
+//		assertNull(vendingMachine1.getItem(&quot;B&quot;));
+//		assertNotNull(vendingMachine1.getItem(&quot;C&quot;));
+//		assertNull(vendingMachine1.getItem(&quot;D&quot;));
+//		assertEquals(0,vendingMachine1.balance,0.001);
+<span class="fc" id="L53">	}</span>
+	
+	/**
+	 * Test for the addItem() method of the {@link VendingMachine} class.
+	 * Add items with normal input.
+	 */
+	@Test
+	public void testAddItemA() {
+//        System.out.println(&quot;testAddItemA&quot;);
+<span class="fc" id="L62">		vendingMachine1.addItem(item1, &quot;B&quot;);</span>
+<span class="fc" id="L63">		assertSame(item1,vendingMachine1.getItem(&quot;B&quot;));</span>
+<span class="fc" id="L64">	}</span>
+	
+	/**
+	 * Test for the addItem() method of the {@link VendingMachine} class.
+	 * Add an item to a slot that is already occupied. 
+	 */
+	@Test
+	public void testAddItemB() {
+//        System.out.println(&quot;testAddItemB&quot;);
+        try { // try inserting in slot A
+<span class="nc" id="L74">			vendingMachine1.addItem(new VendingMachineItem(&quot;Fith Avenue&quot;,1.00), &quot;A&quot;);</span>
+<span class="pc" id="L75">		} catch (VendingMachineException e) {</span>
+			// test exception error message
+<span class="fc" id="L77">			assertEquals(&quot;Slot A already occupied&quot;, e.getMessage());</span>
+		}
+<span class="fc" id="L79">		assertSame(item1,vendingMachine1.getItem(&quot;A&quot;));</span>
+<span class="fc" id="L80">	}</span>
+	
+	/**
+	 * Test for the addItem() method of the {@link VendingMachine} class.
+	 * Add an item with an invalid code.
+	 */
+	@Test
+	public void testAddItemC() {
+//        System.out.println(&quot;testAddItemC&quot;);
+        try { // try inserting in slot E
+<span class="nc" id="L90">			vendingMachine1.addItem(new VendingMachineItem(&quot;Fith Avenue&quot;,1.00), &quot;E&quot;);</span>
+<span class="pc" id="L91">		} catch (VendingMachineException e) {</span>
+			// test exception error message
+<span class="fc" id="L93">			assertEquals(&quot;Invalid code for vending machine item&quot;, e.getMessage());</span>
+		}
+<span class="fc" id="L95">	}</span>
+	
+	/**
+	 * Test for the removeItem() method of the {@link VendingMachine} class.
+	 * Remove items from empty vending machine with invalid codes.
+	 */
+	@Test
+	public void testRemoveItemA() {
+//        System.out.println(&quot;testRemoveItemA&quot;);
+        try { // try removing item from slot E
+<span class="nc" id="L105">	        vendingMachine1.removeItem(&quot;E&quot;);</span>
+<span class="pc" id="L106">		} catch (VendingMachineException e) {</span>
+			// test exception error message
+<span class="fc" id="L108">			assertEquals(&quot;Invalid code for vending machine item&quot;, e.getMessage());</span>
+		}
+<span class="fc" id="L110">		assertSame(item1,vendingMachine1.getItem(&quot;A&quot;));</span>
+<span class="fc" id="L111">		assertNull(vendingMachine1.getItem(&quot;B&quot;));</span>
+<span class="fc" id="L112">		assertSame(item2,vendingMachine1.getItem(&quot;C&quot;));</span>
+<span class="fc" id="L113">		assertNull(vendingMachine1.getItem(&quot;D&quot;));</span>
+<span class="fc" id="L114">	}</span>
+	
+	/**
+	 * Test for the removeItem() method of the {@link VendingMachine} class.
+	 * Remove items from occupied slots with invalid codes.
+	 */
+	@Test
+	public void testRemoveItemB() {
+//        System.out.println(&quot;testRemoveItemB&quot;);
+        try { // try removing item from slot E
+<span class="nc" id="L124">	        vendingMachine1.removeItem(&quot;E&quot;);</span>
+<span class="pc" id="L125">		} catch (VendingMachineException e) {</span>
+			// test exception error message
+<span class="fc" id="L127">			assertEquals(&quot;Invalid code for vending machine item&quot;, e.getMessage());</span>
+		}
+<span class="fc" id="L129">	}</span>
+	
+	/**
+	 * Test for the removeItem() method of the {@link VendingMachine} class.
+	 * Remove items from occupied slots with valid codes.
+	 */
+	@Test
+	public void testRemoveItemC() {
+//        System.out.println(&quot;testRemoveItemC&quot;);
+<span class="fc" id="L138">        VendingMachineItem itemB = vendingMachine1.getItem(&quot;A&quot;);</span>
+<span class="fc" id="L139">        assertSame(itemB, vendingMachine1.removeItem(&quot;A&quot;));</span>
+<span class="fc" id="L140">        assertNull(vendingMachine1.getItem(&quot;A&quot;));</span>
+<span class="fc" id="L141">	}</span>
+
+	
+	/**
+	 * Test for the removeItem() method of the {@link VendingMachine} class.
+	 * Remove items from empty vending machine with valid codes.
+	 */
+	@Test
+	public void testRemoveItemD() {
+//        System.out.println(&quot;testRemoveItemD&quot;);
+		try { // try removing item from slot B
+<span class="nc" id="L152">	        vendingMachine1.removeItem(&quot;B&quot;);</span>
+<span class="pc" id="L153">		} catch (VendingMachineException e) {</span>
+			// test exception error message
+<span class="fc" id="L155">			assertEquals(&quot;Slot B is empty -- cannot remove item&quot;, e.getMessage());</span>
+		}
+<span class="fc" id="L157">		assertNull(vendingMachine1.getItem(&quot;B&quot;));</span>
+<span class="fc" id="L158">	}</span>
+	
+	/**
+	 * Test for the insertMoney() method of the {@link VendingMachine} class.
+	 * Test balance with normal input values.
+	 */
+	@Test
+	public void testInsertMoneyA() {
+//        System.out.println(&quot;testInsertMoneyA&quot;);
+<span class="fc" id="L167">        Double currentBalance = vendingMachine1.balance;</span>
+<span class="fc" id="L168">        vendingMachine1.insertMoney(1.00);</span>
+<span class="fc" id="L169">        currentBalance += 1.00;</span>
+<span class="fc" id="L170">		assertEquals(currentBalance,vendingMachine1.balance,0.001);</span>
+<span class="fc" id="L171">		vendingMachine1.insertMoney(0.00);</span>
+<span class="fc" id="L172">		currentBalance += 0.00;</span>
+<span class="fc" id="L173">		assertEquals(currentBalance,vendingMachine1.balance,0.001);</span>
+<span class="fc" id="L174">	}</span>
+	
+	
+	/**
+	 * Test for the insertMoney() method of the {@link VendingMachine} class.
+	 * Test balance with negative input values.
+	 */
+	@Test
+	public void testInsertMoneyB() {
+//        System.out.println(&quot;testInsertMoneyB&quot;);
+<span class="fc" id="L184">        Double currentBalance = vendingMachine1.balance;</span>
+        try {
+<span class="nc" id="L186">        	vendingMachine1.insertMoney(-1.00);</span>
+<span class="pc" id="L187">        } catch  (VendingMachineException e) {</span>
+			// test exception error message
+<span class="fc" id="L189">			assertEquals(&quot;Invalid amount.  Amount must be &gt;= 0&quot;, e.getMessage());</span>
+        }
+<span class="fc" id="L191">		assertEquals(currentBalance,vendingMachine1.balance,0.001);</span>
+
+<span class="fc" id="L193">		vendingMachine1.insertMoney(1.00);</span>
+<span class="fc" id="L194">        currentBalance += 1.00;</span>
+<span class="fc" id="L195">		assertEquals(currentBalance,vendingMachine1.balance,0.001);</span>
+<span class="fc" id="L196">	}</span>
+	
+	/**
+	 * Test for the getBalance() method of the {@link VendingMachine} class.
+	 * Test balance with normal input values.
+	 */
+	@Test
+	public void testGetBalanceA() {
+//        System.out.println(&quot;testGetBalanceA&quot;);
+<span class="fc" id="L205">        Double currentBalance = vendingMachine1.getBalance();</span>
+
+<span class="fc" id="L207">        vendingMachine1.insertMoney(0.00);</span>
+<span class="fc" id="L208">		assertEquals(currentBalance,vendingMachine1.getBalance(),0.001);</span>
+
+<span class="fc" id="L210">		vendingMachine1.insertMoney(1.00);</span>
+<span class="fc" id="L211">        currentBalance += 1.00;</span>
+<span class="fc" id="L212">		assertEquals(currentBalance,vendingMachine1.getBalance(),0.001);</span>
+<span class="fc" id="L213">	}</span>
+
+	/**
+	 * Test for the getBalance() method of the {@link VendingMachine} class.
+	 * Test balance with negative input values.
+	 */
+	@Test
+	public void testGetBalanceB() {
+//        System.out.println(&quot;testGetBalanceB&quot;);
+<span class="fc" id="L222">        Double currentBalance = vendingMachine1.getBalance();</span>
+
+        try {
+<span class="nc" id="L225">        	vendingMachine1.insertMoney(-0.75);</span>
+<span class="pc" id="L226">        } catch  (VendingMachineException e) {</span>
+			// test exception error message
+<span class="fc" id="L228">			assertEquals(&quot;Invalid amount.  Amount must be &gt;= 0&quot;, e.getMessage());</span>
+        }
+<span class="fc" id="L230">		assertEquals(currentBalance,vendingMachine1.getBalance(),0.001);</span>
+<span class="fc" id="L231">	}</span>
+
+	/**
+	 * Test for the makePurchase() method of the {@link VendingMachine} class.
+	 * Test making a purchase from an empty vending machine.
+	 */
+	@Test
+	public void testMakePurchaseA() {
+//        System.out.println(&quot;testMakePurchaseA&quot;);
+<span class="fc" id="L240">		assertFalse(vendingMachine1.makePurchase(&quot;D&quot;));</span>
+<span class="fc" id="L241">	}</span>
+	
+	/**
+	 * Test for the makePurchase() method of the {@link VendingMachine} class.
+	 * Test making a purchase for an item with sufficient balance.
+	 */
+	@Test
+	public void testMakePurchaseB() {
+//        System.out.println(&quot;testMakePurchaseB&quot;);
+		Double currentBalance;
+<span class="fc" id="L251">		vendingMachine1.insertMoney(1.50);</span>
+<span class="fc" id="L252">		currentBalance = vendingMachine1.getBalance();</span>
+<span class="fc" id="L253">		assertTrue(vendingMachine1.makePurchase(&quot;C&quot;));</span>
+<span class="fc" id="L254">		assertNull(vendingMachine1.getItem(&quot;C&quot;));</span>
+<span class="fc" id="L255">		}</span>
+	
+	/**
+	 * Test for the makePurchase() method of the {@link VendingMachine} class.
+	 * Test making a purchase for an item with insufficient balance.
+	 */
+	@Test
+	public void testMakePurchaseC() {
+//        System.out.println(&quot;testMakePurchaseC&quot;);
+<span class="fc" id="L264">		assertFalse(vendingMachine1.makePurchase(&quot;A&quot;));</span>
+<span class="fc" id="L265">        assertSame(item1, vendingMachine1.removeItem(&quot;A&quot;));</span>
+<span class="fc" id="L266">		vendingMachine1.insertMoney(0.25);</span>
+<span class="fc" id="L267">		assertFalse(vendingMachine1.makePurchase(&quot;C&quot;));</span>
+<span class="fc" id="L268">        assertSame(item2, vendingMachine1.removeItem(&quot;C&quot;));</span>
+<span class="fc" id="L269">	}</span>
+	
+	/**
+	 * Test for the makePurchase() method of the {@link VendingMachine} class.
+	 * Test making a purchase for an item with invalid slot code.
+	 */
+	@Test
+	public void testMakePurchaseD() {
+//        System.out.println(&quot;testMakePurchaseD&quot;);
+        try {
+<span class="nc" id="L279">        	vendingMachine1.makePurchase(&quot;E&quot;);</span>
+<span class="pc" id="L280">        } catch  (VendingMachineException e) {</span>
+			// test exception error message
+<span class="fc" id="L282">			assertEquals(&quot;Invalid code for vending machine item&quot;, e.getMessage());</span>
+        }
+<span class="fc" id="L284">	}</span>
+
+	
+	/**
+	 * Test for the returnChange() method of the {@link VendingMachine} class.
+	 * Test return change without making purchases.
+	 */
+	@Test
+	public void testReturnChangeA() {
+//        System.out.println(&quot;testReturnChangeA&quot;);
+<span class="fc" id="L294">        Double currentBalance = 0.00;</span>
+<span class="fc" id="L295">		vendingMachine1.insertMoney(0.50);</span>
+<span class="fc" id="L296">        currentBalance += 0.50;</span>
+<span class="fc" id="L297">		vendingMachine1.insertMoney(0.25);</span>
+<span class="fc" id="L298">        currentBalance += 0.25;</span>
+<span class="fc" id="L299">		assertEquals(currentBalance,vendingMachine1.returnChange(),0.001);	</span>
+<span class="fc" id="L300">		assertEquals(0,vendingMachine1.getBalance(),0.001);	</span>
+<span class="fc" id="L301">	}</span>
+	
+	/**
+	 * Test for the returnChange() method of the {@link VendingMachine} class.
+	 * Test return change with making purchases.
+	 */
+	@Test
+	public void testReturnChangeB() {
+//        System.out.println(&quot;testReturnChangeB&quot;);
+<span class="fc" id="L310">        vendingMachine1.insertMoney(5.75);</span>
+<span class="fc" id="L311">        Double currentBalance = vendingMachine1.getBalance();</span>
+<span class="fc" id="L312">        vendingMachine1.makePurchase(&quot;A&quot;);</span>
+<span class="fc" id="L313">        currentBalance -= 1.50;</span>
+<span class="fc" id="L314">		assertEquals(currentBalance,vendingMachine1.returnChange(),0.001);	</span>
+<span class="fc" id="L315">		assertEquals(0,vendingMachine1.getBalance(),0.001);</span>
+<span class="fc" id="L316">	}</span>
+	
+	@After
+	public void tearDown1() throws Exception {
+<span class="fc" id="L320">		double change = vendingMachine1.returnChange();</span>
+<span class="fc bfc" id="L321" title="All 2 branches covered.">		if (vendingMachine1.getItem(&quot;A&quot;) != null) {</span>
+<span class="fc" id="L322">			vendingMachine1.removeItem(&quot;A&quot;);</span>
+		}
+<span class="fc bfc" id="L324" title="All 2 branches covered.">		if (vendingMachine1.getItem(&quot;B&quot;) != null) {</span>
+<span class="fc" id="L325">			vendingMachine1.removeItem(&quot;B&quot;);</span>
+		}
+<span class="fc bfc" id="L327" title="All 2 branches covered.">		if (vendingMachine1.getItem(&quot;C&quot;) != null) {</span>
+<span class="fc" id="L328">			vendingMachine1.removeItem(&quot;C&quot;);</span>
+		}
+<span class="pc bpc" id="L330" title="1 of 2 branches missed.">		if (vendingMachine1.getItem(&quot;D&quot;) != null) {</span>
+<span class="nc" id="L331">			vendingMachine1.removeItem(&quot;D&quot;);</span>
+		}
+<span class="fc" id="L333">	}</span>
+
+	/**
+	 * Cleans up test objects after a test case is executed.
+	 */
+	@AfterClass
+	public static void tearDown(){
+//        System.out.println(&quot;tearDown&quot;);
+<span class="fc" id="L341">        vendingMachine1 = null;</span>
+<span class="fc" id="L342">        item1 = null;</span>
+<span class="fc" id="L343">        item2 = null;</span>
+        
+<span class="fc" id="L345">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>edu.towson.cis.cosc603.project4.vendingmachine (Apr 9, 2016 10:25:23 PM)</div></body></html>
