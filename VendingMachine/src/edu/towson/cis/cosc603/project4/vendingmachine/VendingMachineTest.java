@@ -96,7 +96,7 @@ public class VendingMachineTest {
 	
 	/**
 	 * Test for the removeItem() method of the {@link VendingMachine} class.
-	 * Remove items from empty vending machine with invalid codes.
+	 * Remove item from empty slot with invalid code.
 	 */
 	@Test
 	public void testRemoveItemA() {
@@ -115,7 +115,7 @@ public class VendingMachineTest {
 	
 	/**
 	 * Test for the removeItem() method of the {@link VendingMachine} class.
-	 * Remove items from occupied slots with invalid codes.
+	 * Remove item from occupied slot with invalid code.
 	 */
 	@Test
 	public void testRemoveItemB() {
@@ -130,20 +130,20 @@ public class VendingMachineTest {
 	
 	/**
 	 * Test for the removeItem() method of the {@link VendingMachine} class.
-	 * Remove items from occupied slots with valid codes.
+	 * Remove item from occupied slot with valid code.
 	 */
 	@Test
 	public void testRemoveItemC() {
 //        System.out.println("testRemoveItemC");
-        VendingMachineItem itemB = vendingMachine1.getItem("A");
-        assertSame(itemB, vendingMachine1.removeItem("A"));
+        VendingMachineItem itemA = vendingMachine1.getItem("A");
+        assertSame(itemA, vendingMachine1.removeItem("A"));
         assertNull(vendingMachine1.getItem("A"));
 	}
 
 	
 	/**
 	 * Test for the removeItem() method of the {@link VendingMachine} class.
-	 * Remove items from empty vending machine with valid codes.
+	 * Remove item from empty slot with valid code.
 	 */
 	@Test
 	public void testRemoveItemD() {
@@ -197,7 +197,7 @@ public class VendingMachineTest {
 	
 	/**
 	 * Test for the getBalance() method of the {@link VendingMachine} class.
-	 * Test balance with normal input values.
+	 * Test getBalance with normal input values.
 	 */
 	@Test
 	public void testGetBalanceA() {
@@ -214,7 +214,7 @@ public class VendingMachineTest {
 
 	/**
 	 * Test for the getBalance() method of the {@link VendingMachine} class.
-	 * Test balance with negative input values.
+	 * Test getBalance with negative input values.
 	 */
 	@Test
 	public void testGetBalanceB() {
@@ -232,7 +232,7 @@ public class VendingMachineTest {
 
 	/**
 	 * Test for the makePurchase() method of the {@link VendingMachine} class.
-	 * Test making a purchase from an empty vending machine.
+	 * Test making a purchase from an empty slot.
 	 */
 	@Test
 	public void testMakePurchaseA() {
